@@ -92,7 +92,7 @@ function setHeadlights(state) {
     light1.classList.toggle("active", state >= 1);
     light2.classList.toggle("active", state === 2);
 }
-
+/* ======= SEIN ======= */
 let leftBlinking = false;
 let rightBlinking = false;
 let leftState = false;
@@ -101,12 +101,13 @@ let lastTime = 0;
 
 function loopBlink(timestamp){
     const delta = timestamp - lastTime;
-    if(delta >= 500){
+    if(delta >= 500){ // kedip tiap 500ms
         if(leftState) leftBlinking = !leftBlinking;
         if(rightState) rightBlinking = !rightBlinking;
         lastTime = timestamp;
     }
 
+    // update opacity setiap frame
     leftSein.style.opacity = leftState ? (leftBlinking ? 1 : 0.3) : 0.3;
     rightSein.style.opacity = rightState ? (rightBlinking ? 1 : 0.3) : 0.3;
 
@@ -114,20 +115,25 @@ function loopBlink(timestamp){
 }
 requestAnimationFrame(loopBlink);
 
+// fungsi untuk mengaktifkan/mematikan sein
 function setLeftIndicator(state){
     leftState = state;
     leftBlinking = true; // langsung nyala
+    leftSein.style.opacity = state ? 1 : 0.3; // langsung tampil
 }
 
 function setRightIndicator(state){
     rightState = state;
     rightBlinking = true; // langsung nyala
+    rightSein.style.opacity = state ? 1 : 0.3; // langsung tampil
 }
+
 
 
 function setSeatbelts(state) { seatbelt.classList.toggle("active", state); }
 
 function setSpeedMode(mode) { kmhMode = (mode === 0); }
+
 
 
 
