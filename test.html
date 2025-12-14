@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>nj spedometer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="hud">
+
+  <div class="speedometer">
+    <div class="speed-ring" id="speedRing"></div>
+    <div class="scale" id="scale"></div>
+
+    <div class="center">
+      <div id="leftSein" class="sein">◀</div>
+      <img id="engineIcon" src="aseet/eng.png" alt="Engine"> 
+      <img class="logo" src="aseet/logonj.png">
+      <div class="speed" id="speedValue">0</div>
+      <div class="unit">KM/H</div>
+      <div id="rightSein" class="sein">▶</div>
+      <img id="seatbelt" src="aseet/sb.png" alt="Seatbelt"> 
+      <div class="gear-badge" id="gearValue">N</div>
+    </div>
+  </div>
+
+  <!-- MINI RINGS -->
+  <div class="mini engine">
+    <div class="bg"></div>
+    <div class="value" id="engineRing"></div>
+    <div class="inner">
+      <img src="aseet/eng.svg" class="mini-icon">
+    </div>
+  </div>
+
+  <div class="mini fuel">
+    <div class="bg"></div>
+    <div class="value" id="fuelRing"></div>
+    <div class="inner">
+      <img src="aseet/fuel.svg" class="mini-icon">
+    </div>
+  </div>
+
+  <!-- LIGHTS BAWAH GEAR -->
+  <div id="lightContainer">
+    <img id="light1" src="aseet/light1.png" alt="Light1">
+    <img id="light2" src="aseet/light2.png" alt="Light2">
+  </div>
+
+  <!-- RPM BAR -->
+  <div class="rpm-bar-container">
+    <div class="rpm-bar-bg"></div>
+    <div class="rpm-bar" id="rpmBar"></div>
+    <div class="rpm-bar-text" id="rpmBarText">0 RPM</div>
+  </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>

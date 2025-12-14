@@ -1,0 +1,214 @@
+:root{
+  --ui-scale:.88;
+  --accent:#9ad7ff;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;user-select:none}
+body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
+
+/* ROOT */
+.hud{
+  position:fixed;
+  right:28px;
+  bottom:28px;
+  width:320px;
+  height:320px;
+  transform:scale(var(--ui-scale));
+  transform-origin:bottom right;
+}
+
+/* SPEEDOMETER */
+.speedometer{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:radial-gradient(circle,#1a1f2b 0%,#0e1116 70%);
+  box-shadow:0 0 16px rgba(154,215,255,.2),inset 0 0 12px rgba(255,255,255,.05);
+}
+.speedometer::after{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,.08);
+}
+
+/* SPEED RING */
+.speed-ring{
+  position:absolute;
+  inset:14px;
+  border-radius:50%;
+  background:conic-gradient(from -210deg,var(--accent) 0deg,rgba(255,255,255,.08) 0deg);
+  mask:radial-gradient(circle,transparent 60%,#000 61%);
+}
+
+/* SCALE */
+.scale{position:absolute;inset:0;pointer-events:none}
+.scale span{
+  position:absolute;
+  top:50%;
+  left:50%;
+  font-size:15px;
+  opacity:.75;
+}
+.tick{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:2px;
+  background:rgba(255,255,255,.45);
+  transform-origin:top center;
+}
+.tick.big{height:14px}
+.tick.small{height:7px;opacity:.35}
+
+/* CENTER */
+.center{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.logo{
+  width:62px;
+  transform:scale(2.5);
+  margin-bottom:4px;
+}
+.speed{font-size:34px;font-weight:600;position:relative;}
+.unit{font-size:9px;opacity:.6}
+.gear-badge{
+  margin-top:6px;
+  width:36px;height:36px;
+  border-radius:50%;
+  background:rgba(154,215,255,.12);
+  border:2px solid var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--accent);
+}
+
+/* SEIN */
+.sein{
+  position:absolute;
+  top:70%;
+  transform: translateY(-50%);
+  font-size:20px;
+  opacity:0.3;
+  color:var(--accent);
+  transition: opacity .2s, color .2s;
+}
+#leftSein{ left:100px; }
+#rightSein{ right:100px; }
+.sein.active{ opacity:1; color:#ffff00; }
+
+/* ENGINE & SEATBELT ICONS PNG */
+#engineIcon, #seatbelt{
+  position:absolute;
+  width:40px;
+  height:40px;
+  opacity:0.3;
+  transition: opacity .2s;
+}
+#engineIcon{ left:83px; top:150px; }
+#seatbelt{ right:90px; top:150px; }
+#engineIcon.active, #seatbelt.active{ opacity:1; }
+
+/* LIGHTS */
+#lightContainer{
+  position:absolute;
+  bottom:15%;
+  left:49%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:10px;
+}
+#lightContainer img{
+  width:28px;
+  height:28px;
+  opacity:0.3;
+  transition:opacity .2s;
+}
+#lightContainer img.active{ opacity:1; }
+
+/* MINI RINGS */
+.mini{
+  width:68px;height:68px;
+  position:absolute;
+  border-radius:50%;
+}
+.engine{top:-8px;left:-8px}
+.fuel{top:-8px;right:-8px}
+.mini .bg{
+  position:absolute;
+  inset:-3px;
+  border-radius:50%;
+  background:radial-gradient(circle, #1a1f2b 0%, #0e1116 70%);
+  opacity:.75;
+}
+.mini .value{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+}
+.mini .inner{
+  position:absolute;
+  inset:7px;
+  border-radius:50%;
+  background: radial-gradient(circle, #1a1f2b 0%, #0e1116 70%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:8px;
+  opacity:1;
+}
+.mini-icon{
+  width:30px;
+  height:30px;
+  color:var(--accent);
+  opacity:.95;
+}
+.mini.critical .mini-icon{
+  color:#ff5050;
+  animation: blink .8s infinite;
+}
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.25}
+}
+
+/* RPM BAR */
+.rpm-bar-container{
+  position:absolute;
+  bottom:-19px;
+  left:50%;
+  transform:translateX(-50%);
+  width:180px;
+  height:20px;
+  background:rgba(26,31,43,0.7); 
+  border-radius:10px;
+  padding:2px;
+  border:2px solid #000000;
+}
+.rpm-bar-bg{
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,.08);
+  border-radius:10px;
+}
+.rpm-bar{
+  position:absolute;
+  inset:0;
+  width:0%;
+  background:var(--accent);
+  border-radius:10px;
+  transition:width 0.1s linear;
+}
+.rpm-bar-text{
+  position:absolute;
+  width:100%;
+  text-align:center;
+  top:-15px;
+  font-size:10px;
+  font-weight:600;
+}
