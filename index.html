@@ -1,198 +1,65 @@
-:root{
-  --ui-scale:.88;
-  --accent:#9ad7ff;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>nj spedometer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="hud">
 
-*{margin:0;padding:0;box-sizing:border-box;user-select:none}
-body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
+  <div class="speedometer">
+    <!-- Lingkaran hitam di tengah -->
+    <div class="center-circle"></div>
 
-/* HUD ROOT */
-.hud{
-  position:fixed;
-  right:28px;
-  bottom:28px;
-  width:320px;
-  height:320px;
-  transform:scale(var(--ui-scale));
-  transform-origin:bottom right;
-}
+    <!-- Speed ring & scale -->
+    <div class="speed-ring" id="speedRing"></div>
+    <div class="scale" id="scale"></div>
 
-/* SPEEDOMETER */
-.speedometer{
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  background:radial-gradient(circle,#1a1f2b 0%,#0e1116 70%);
-  box-shadow:0 0 16px rgba(154,215,255,.2),inset 0 0 12px rgba(255,255,255,.05);
-  z-index:0;
-}
+    <!-- Center content (logo, speed, gear, engine, seatbelt, sein) -->
+    <div class="center">
+      <div id="leftSein" class="sein">◀</div>
+      <img id="engineIcon" src="aseet/eng.png" alt="Engine"> 
+      <img class="logo" src="aseet/logonj.png">
+      <div class="speed" id="speedValue">0</div>
+      <div class="unit">KM/H</div>
+      <div id="rightSein" class="sein">▶</div>
+      <img id="seatbelt" src="aseet/sb.png" alt="Seatbelt"> 
+      <div class="gear-badge" id="gearValue">N</div>
+    </div>
+  </div>
 
-/* CENTER BLACK CIRCLE */
-.center-circle{
-  position:absolute;
-  inset:35px;
-  border-radius:50%;
-  background-color:#0a0c12;
-  border:2px solid rgba(255,255,255,0.08);
-  z-index:1; /* di atas speed-ring, di bawah scale & center content */
-}
+  <!-- MINI RINGS -->
+  <div class="mini engine">
+    <div class="bg"></div>
+    <div class="value" id="engineRing"></div>
+    <div class="inner">
+      <img src="aseet/eng.svg" class="mini-icon">
+    </div>
+  </div>
 
-/* SPEED RING */
-.speed-ring{
-  position:absolute;
-  inset:14px;
-  border-radius:50%;
-  background:conic-gradient(from -210deg, var(--accent) 0deg, rgba(255,255,255,.08) 0deg);
-  z-index:0;
-}
+  <div class="mini fuel">
+    <div class="bg"></div>
+    <div class="value" id="fuelRing"></div>
+    <div class="inner">
+      <img src="aseet/fuel.svg" class="mini-icon">
+    </div>
+  </div>
 
-/* SCALE (tick/angka) */
-.scale{position:absolute;inset:0;pointer-events:none; z-index:2;}
-.scale span{position:absolute;top:50%;left:50%;font-size:15px;opacity:.75;}
-.tick{position:absolute;top:50%;left:50%;width:2px;background:rgba(255,255,255,.45);transform-origin:top center;}
-.tick.big{height:14px;}
-.tick.small{height:7px;opacity:.35;}
+  <!-- LIGHTS -->
+  <div id="lightContainer">
+    <img id="light1" src="aseet/light1.png" alt="Light1">
+    <img id="light2" src="aseet/light2.png" alt="Light2">
+  </div>
 
-/* CENTER CONTENT */
-.center{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:3; /* asset di atas scale & black circle */
-}
-.logo{width:62px;transform:scale(2.5);margin-bottom:4px;}
-.speed{font-size:34px;font-weight:600;position:relative;}
-.unit{font-size:9px;opacity:.6;}
-.gear-badge{
-  margin-top:6px;
-  width:36px;height:36px;
-  border-radius:50%;
-  background:rgba(154,215,255,.12);
-  border:2px solid var(--accent);
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;color:var(--accent);
-}
+  <!-- RPM BAR -->
+  <div class="rpm-bar-container">
+    <div class="rpm-bar-bg"></div>
+    <div class="rpm-bar" id="rpmBar"></div>
+    <div class="rpm-bar-text" id="rpmBarText">0 RPM</div>
+  </div>
 
-/* SEIN */
-.sein{position:absolute;top:70%;transform:translateY(-50%);font-size:20px;opacity:.3;color:var(--accent);}
-#leftSein{ left:100px; } 
-#rightSein{ right:100px; }
-.sein.active{ opacity:1; color:#ffff00; }
-
-/* ENGINE & SEATBELT ICONS PNG */
-#engineIcon, #seatbelt{
-  position:absolute;
-  width:40px;
-  height:40px;
-  opacity:0.3;
-  transition: opacity .2s;
-  z-index:3; /* di atas black circle */
-}
-#engineIcon{ left:83px; top:150px; }
-#seatbelt{ right:90px; top:150px; }
-#engineIcon.active, #seatbelt.active{ opacity:1; }
-
-/* LIGHTS */
-#lightContainer{
-  position:absolute;
-  bottom:15%;
-  left:49%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:10px;
-  z-index:3;
-}
-#lightContainer img{
-  width:28px;
-  height:28px;
-  opacity:0.3;
-  transition:opacity .2s;
-}
-#lightContainer img.active{ opacity:1; }
-
-/* MINI RINGS */
-.mini{
-  width:68px;height:68px;
-  position:absolute;
-  border-radius:50%;
-  z-index:3;
-}
-.engine{top:-8px;left:-8px}
-.fuel{top:-8px;right:-8px}
-.mini .bg{
-  position:absolute;
-  inset:-3px;
-  border-radius:50%;
-  background: radial-gradient(circle, #0a0c12 0%, #1a1f2b 70%);
-  opacity:1;
-}
-.mini .value{
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-}
-.mini .inner{
-  position:absolute;
-  inset:7px;
-  border-radius:50%;
-  background: radial-gradient(circle, #1a1f2b 0%, #0e1116 70%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:8px;
-  opacity:1;
-}
-.mini-icon{
-  width:30px;
-  height:30px;
-  color:var(--accent);
-  opacity:.95;
-}
-.mini.critical .mini-icon{
-  color:#ff5050;
-  animation: blink .8s infinite;
-}
-@keyframes blink{
-  0%,100%{opacity:1}
-  50%{opacity:.25}
-}
-
-/* RPM BAR */
-.rpm-bar-container{
-  position:absolute;
-  bottom:-19px;
-  left:50%;
-  transform:translateX(-50%);
-  width:180px;
-  height:20px;
-  background:rgba(26,31,43,0.7);
-  border-radius:10px;
-  padding:2px;
-  border:2px solid #000000;
-  z-index:3;
-}
-.rpm-bar-bg{
-  position:absolute;
-  inset:0;
-  background:rgba(255,255,255,.08);
-  border-radius:10px;
-}
-.rpm-bar{
-  position:absolute;
-  inset:0;
-  width:0%;
-  background:var(--accent);
-  border-radius:10px;
-  transition:width 0.1s linear;
-}
-.rpm-bar-text{
-  position:absolute;
-  width:100%;
-  text-align:center;
-  top:-15px;
-  font-size:10px;
-  font-weight:600;
-}
+</div>
+<script src="script.js"></script>
+</body>
+</html>
