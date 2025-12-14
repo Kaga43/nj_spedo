@@ -92,47 +92,33 @@ function setHeadlights(state) {
     light1.classList.toggle("active", state >= 1);
     light2.classList.toggle("active", state === 2);
 }
-let leftBlinking = false;
-let rightBlinking = false;
-let leftState = false;
-let rightState = false;
-let lastTime = 0;
-
-function loopBlink(timestamp){
-    const delta = timestamp - lastTime;
-    if(delta >= 500){
-        if(leftState) leftBlinking = !leftBlinking;
-        if(rightState) rightBlinking = !rightBlinking;
-        lastTime = timestamp;
-    }
-
-    leftSein.style.opacity = leftState ? (leftBlinking ? 1 : 0.3) : 0.3;
-    rightSein.style.opacity = rightState ? (rightBlinking ? 1 : 0.3) : 0.3;
-
-    requestAnimationFrame(loopBlink);
-}
-requestAnimationFrame(loopBlink);
+let leftBlink = false, rightBlink = false;
+let leftActive = false, rightActive = false;
 
 function setLeftIndicator(state){
-    leftState = state;
-    leftBlinking = true; // langsung nyala
+    leftActive = state;
+    leftSein.style.opacity = state ? 1 : 0.3; // langsung nyala jika aktif
 }
 
 function setRightIndicator(state){
-    rightState = state;
-    rightBlinking = true; // langsung nyala
+    rightActive = state;
+    rightSein.style.opacity = state ? 1 : 0.3; // langsung nyala jika aktif
 }
 
-function setRightIndicator(state) {
-    if(state){
-        rightSein.classList.add('blinking');
-    } else {
-        rightSein.classList.remove('blinking');
-        rightSein.style.opacity = 0.3;
+// Loop kedip
+setInterval(() => {
+    if(leftActive){
+        leftBlink = !leftBlink;
+        leftSein.style.opacity = leftBlink ? 1 : 0.3;
     }
-}
+    if(rightActive){
+        rightBlink = !rightBlink;
+        rightSein.style.opacity = rightBlink ? 1 : 0.3;
+    }
+}, 500);
 
 function setSeatbelts(state) { seatbelt.classList.toggle("active", state); }
 
 function setSpeedMode(mode) { kmhMode = (mode === 0); }
+
 
