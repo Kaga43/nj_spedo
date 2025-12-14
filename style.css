@@ -30,7 +30,7 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
 /* CENTER BLACK CIRCLE */
 .center-circle{
   position:absolute;
-  inset:35px;
+  inset:14px;
   border-radius:50%;
   background-color:#0a0c12;
   border:2px solid rgba(255,255,255,0.08);
@@ -196,3 +196,4 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   font-size:10px;
   font-weight:600;
 }
+
