@@ -72,7 +72,6 @@ loop();
 function setEngine(state) {
     engineOn = state;
     engineIcon.classList.toggle("active", state);
-    light1.classList.toggle("active", state);
 }
 
 function setSpeed(s) { speed = s; }
@@ -100,3 +99,4 @@ function setRightIndicator(state) { rightSein.classList.toggle("active", state);
 function setSeatbelts(state) { seatbelt.classList.toggle("active", state); }
 
 function setSpeedMode(mode) { kmhMode = (mode === 0); }
+
