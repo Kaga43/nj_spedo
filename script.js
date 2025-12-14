@@ -166,3 +166,51 @@ document.addEventListener("keydown", (e) => {
             break;
     }
 });
+
+* ======= TEST KEYBOARD (a-z) ======= */
+document.addEventListener("keydown", (e) => {
+    const key = e.key.toLowerCase();
+    switch(key) {
+        case "e": // toggle engine
+            setEngine(!engineOn);
+            break;
+        case "l": // toggle left indicator
+            setLeftIndicator(leftBlinkInterval == null);
+            break;
+        case "r": // toggle right indicator
+            setRightIndicator(rightBlinkInterval == null);
+            break;
+        case "f": // cycle headlights 0-1-2
+            let state = 0;
+            if (light1.classList.contains("active") && light2.classList.contains("active")) state = 2;
+            else if (light1.classList.contains("active")) state = 1;
+            state = (state + 1) % 3;
+            setHeadlights(state);
+            break;
+        case "s": // toggle seatbelt
+            setSeatbelts(!seatbelt.classList.contains("active"));
+            break;
+        case "g": // cycle gear 0-N-1-2-3
+            let currentGear = gearValue.innerText === "N" ? 0 : parseInt(gearValue.innerText);
+            let nextGear = (currentGear + 1) % 4;
+            setGear(nextGear);
+            break;
+        case "k": // toggle speed mode
+            setSpeedMode(kmhMode ? 1 : 0);
+            break;
+        case "t": // tambah speed
+            setSpeed(speed + 5);
+            break;
+        case "y": // kurangi speed
+            setSpeed(speed - 5);
+            break;
+        case "p": // random RPM
+            setRPM(Math.random());
+            break;
+        case "h": // random fuel & health
+            setFuel(Math.random());
+            setHealth(Math.random());
+            break;
+    }
+});
+
