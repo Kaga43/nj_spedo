@@ -92,27 +92,35 @@ function setHeadlights(state) {
     light1.classList.toggle("active", state >= 1);
     light2.classList.toggle("active", state === 2);
 }
-let leftBlink = false;
-let rightBlink = false;
+let leftBlinking = false;
+let rightBlinking = false;
+let leftState = false;
+let rightState = false;
+let lastTime = 0;
 
-setInterval(() => {
-    if (leftSein.classList.contains('blinking')) {
-        leftBlink = !leftBlink;
-        leftSein.style.opacity = leftBlink ? 1 : 0.3;
+function loopBlink(timestamp){
+    const delta = timestamp - lastTime;
+    if(delta >= 500){
+        if(leftState) leftBlinking = !leftBlinking;
+        if(rightState) rightBlinking = !rightBlinking;
+        lastTime = timestamp;
     }
-    if (rightSein.classList.contains('blinking')) {
-        rightBlink = !rightBlink;
-        rightSein.style.opacity = rightBlink ? 1 : 0.3;
-    }
-}, 500); // kedip tiap 500ms
 
-function setLeftIndicator(state) {
-    if(state){
-        leftSein.classList.add('blinking');
-    } else {
-        leftSein.classList.remove('blinking');
-        leftSein.style.opacity = 0.3;
-    }
+    leftSein.style.opacity = leftState ? (leftBlinking ? 1 : 0.3) : 0.3;
+    rightSein.style.opacity = rightState ? (rightBlinking ? 1 : 0.3) : 0.3;
+
+    requestAnimationFrame(loopBlink);
+}
+requestAnimationFrame(loopBlink);
+
+function setLeftIndicator(state){
+    leftState = state;
+    leftBlinking = true; // langsung nyala
+}
+
+function setRightIndicator(state){
+    rightState = state;
+    rightBlinking = true; // langsung nyala
 }
 
 function setRightIndicator(state) {
@@ -127,3 +135,4 @@ function setRightIndicator(state) {
 function setSeatbelts(state) { seatbelt.classList.toggle("active", state); }
 
 function setSpeedMode(mode) { kmhMode = (mode === 0); }
+
