@@ -92,6 +92,7 @@ function setHeadlights(state) {
     light1.classList.toggle("active", state >= 1);
     light2.classList.toggle("active", state === 2);
 }
+
 let leftBlinking = false;
 let rightBlinking = false;
 let leftState = false;
@@ -123,9 +124,11 @@ function setRightIndicator(state){
     rightBlinking = true; // langsung nyala
 }
 
+
 function setSeatbelts(state) { seatbelt.classList.toggle("active", state); }
 
 function setSpeedMode(mode) { kmhMode = (mode === 0); }
+
 
 
 
