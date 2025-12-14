@@ -6,7 +6,7 @@
 *{margin:0;padding:0;box-sizing:border-box;user-select:none}
 body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
 
-/* ROOT */
+/* HUD ROOT */
 .hud{
   position:fixed;
   right:28px;
@@ -24,16 +24,17 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   border-radius:50%;
   background:radial-gradient(circle,#1a1f2b 0%,#0e1116 70%);
   box-shadow:0 0 16px rgba(154,215,255,.2),inset 0 0 12px rgba(255,255,255,.05);
+  z-index:0;
 }
 
-/* CENTER BLACK CIRCLE FIX RAGE:MP */
-.center-circle {
-  position: absolute;
-  inset: 14px; 
-  border-radius: 50%;
-  background-color: #0a0c12; /* hitam tengah */
-  border: 2px solid rgba(255,255,255,0.08);
-  z-index: 2; /* di atas speed-ring tapi di bawah center content */
+/* CENTER BLACK CIRCLE */
+.center-circle{
+  position:absolute;
+  inset:35px;
+  border-radius:50%;
+  background-color:#0a0c12;
+  border:2px solid rgba(255,255,255,0.08);
+  z-index:1; /* di atas speed-ring, di bawah scale & center content */
 }
 
 /* SPEED RING */
@@ -41,31 +42,18 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   position:absolute;
   inset:14px;
   border-radius:50%;
-  background:conic-gradient(from -210deg,var(--accent) 0deg,rgba(255,255,255,.08) 0deg);
-  mask:radial-gradient(circle,transparent 60%,#000 61%);
+  background:conic-gradient(from -210deg, var(--accent) 0deg, rgba(255,255,255,.08) 0deg);
+  z-index:0;
 }
 
-/* SCALE */
-.scale{position:absolute;inset:0;pointer-events:none}
-.scale span{
-  position:absolute;
-  top:50%;
-  left:50%;
-  font-size:15px;
-  opacity:.75;
-}
-.tick{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:2px;
-  background:rgba(255,255,255,.45);
-  transform-origin:top center;
-}
-.tick.big{height:14px}
-.tick.small{height:7px;opacity:.35}
+/* SCALE (tick/angka) */
+.scale{position:absolute;inset:0;pointer-events:none; z-index:2;}
+.scale span{position:absolute;top:50%;left:50%;font-size:15px;opacity:.75;}
+.tick{position:absolute;top:50%;left:50%;width:2px;background:rgba(255,255,255,.45);transform-origin:top center;}
+.tick.big{height:14px;}
+.tick.small{height:7px;opacity:.35;}
 
-/* CENTER */
+/* CENTER CONTENT */
 .center{
   position:absolute;
   inset:0;
@@ -73,14 +61,11 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   flex-direction:column;
   align-items:center;
   justify-content:center;
+  z-index:3; /* asset di atas scale & black circle */
 }
-.logo{
-  width:62px;
-  transform:scale(2.5);
-  margin-bottom:4px;
-}
+.logo{width:62px;transform:scale(2.5);margin-bottom:4px;}
 .speed{font-size:34px;font-weight:600;position:relative;}
-.unit{font-size:9px;opacity:.6}
+.unit{font-size:9px;opacity:.6;}
 .gear-badge{
   margin-top:6px;
   width:36px;height:36px;
@@ -92,16 +77,8 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
 }
 
 /* SEIN */
-.sein{
-  position:absolute;
-  top:70%;
-  transform: translateY(-50%);
-  font-size:20px;
-  opacity:0.3;
-  color:var(--accent);
-  transition: opacity .2s, color .2s;
-}
-#leftSein{ left:100px; }
+.sein{position:absolute;top:70%;transform:translateY(-50%);font-size:20px;opacity:.3;color:var(--accent);}
+#leftSein{ left:100px; } 
 #rightSein{ right:100px; }
 .sein.active{ opacity:1; color:#ffff00; }
 
@@ -112,6 +89,7 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   height:40px;
   opacity:0.3;
   transition: opacity .2s;
+  z-index:3; /* di atas black circle */
 }
 #engineIcon{ left:83px; top:150px; }
 #seatbelt{ right:90px; top:150px; }
@@ -125,6 +103,7 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   transform:translateX(-50%);
   display:flex;
   gap:10px;
+  z-index:3;
 }
 #lightContainer img{
   width:28px;
@@ -139,6 +118,7 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   width:68px;height:68px;
   position:absolute;
   border-radius:50%;
+  z-index:3;
 }
 .engine{top:-8px;left:-8px}
 .fuel{top:-8px;right:-8px}
@@ -192,6 +172,7 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   border-radius:10px;
   padding:2px;
   border:2px solid #000000;
+  z-index:3;
 }
 .rpm-bar-bg{
   position:absolute;
