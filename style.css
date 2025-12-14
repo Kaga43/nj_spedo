@@ -25,12 +25,15 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   background:radial-gradient(circle,#1a1f2b 0%,#0e1116 70%);
   box-shadow:0 0 16px rgba(154,215,255,.2),inset 0 0 12px rgba(255,255,255,.05);
 }
-.speedometer::after{
-  content:"";
-  position:absolute;
-  inset:14px;
-  border-radius:50%;
-  border:2px solid rgba(255,255,255,.08);
+
+/* CENTER BLACK CIRCLE FIX RAGE:MP */
+.center-circle {
+  position: absolute;
+  inset: 14px; 
+  border-radius: 50%;
+  background-color: #0a0c12; /* hitam tengah */
+  border: 2px solid rgba(255,255,255,0.08);
+  z-index: 2; /* di atas speed-ring tapi di bawah center content */
 }
 
 /* SPEED RING */
@@ -143,8 +146,8 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   position:absolute;
   inset:-3px;
   border-radius:50%;
-  background:radial-gradient(circle, #1a1f2b 0%, #0e1116 70%);
-  opacity:.75;
+  background: radial-gradient(circle, #0a0c12 0%, #1a1f2b 70%);
+  opacity:1;
 }
 .mini .value{
   position:absolute;
@@ -185,7 +188,7 @@ body{background:transparent;font-family:"Segoe UI",Arial,sans-serif;color:#fff}
   transform:translateX(-50%);
   width:180px;
   height:20px;
-  background:rgba(26,31,43,0.7); 
+  background:rgba(26,31,43,0.7);
   border-radius:10px;
   padding:2px;
   border:2px solid #000000;
