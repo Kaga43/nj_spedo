@@ -100,25 +100,3 @@ function setRightIndicator(state) { rightSein.classList.toggle("active", state);
 function setSeatbelts(state) { seatbelt.classList.toggle("active", state); }
 
 function setSpeedMode(mode) { kmhMode = (mode === 0); }
-
-/* ======= KEYBOARD TEST ======= */
-document.addEventListener("keydown", e => {
-    switch(e.key.toLowerCase()) {
-        case "e": setEngine(!engineOn); break;
-        case "w": setSpeed(Math.min(speed+1,70)); break;
-        case "s": setSpeed(Math.max(speed-1,0)); break;
-        case "a": setLeftIndicator(!leftSein.classList.contains("active")); break;
-        case "d": setRightIndicator(!rightSein.classList.contains("active")); break;
-        case "b": setSeatbelts(!seatbelt.classList.contains("active")); break;
-        case "f": setFuel(Math.max(fuel-0.05,0)); break;
-        case "r": setFuel(Math.min(fuel+0.05,1)); break;
-        case "g": setHealth(Math.min(health+0.05,1)); break;
-        case "h": setHealth(Math.max(health-0.05,0)); break;
-        case "m": setSpeedMode(kmhMode ? 1 : 0); break;
-        case "n": setGear("N"); break;
-        case "1": case "2": case "3": case "4": case "5": case "6": setGear(e.key); break;
-        case "l": setHeadlights(light2.classList.contains("active") ? 0 : 2); break;
-        case "u": setRPM(Math.min(rpm/rpmMax + 0.1,1)); break;
-        case "j": setRPM(Math.max(rpm/rpmMax - 0.1,0)); break;
-    }
-});
