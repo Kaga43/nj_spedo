@@ -59,10 +59,11 @@ function loop() {
     document.querySelector(".engine").classList.toggle("critical", health < 0.25);
 
     // Smooth RPM
-    rpmDisp += (rpm - rpmDisp) * 0.12; // lerp
-    const rpmPercent = Math.min(rpmDisp / rpmMax * 100, 100);
-    rpmBar.style.width = rpmPercent + "%";
-    rpmBarText.innerText = Math.floor(rpmDisp) + " RPM";
+     rpmDisp += (rpm - rpmDisp) * 0.12;
+     const rpmPercent = rpmDisp * 100;
+     rpmBar.style.width = rpmPercent + "%";
+     rpmBarText.innerText = Math.floor(rpmDisp * rpmMax) + " RPM";
+
 
     requestAnimationFrame(loop);
 }
@@ -76,12 +77,17 @@ function setEngine(state) {
 
 function setSpeed(s) { speed = s; }
 
-function setRPM(r) { rpm = r * rpmMax; }
+function setRPM(r) {
+    rpm = Math.min(Math.max(r, 0), 1);
+}
 
-function setFuel(f) { fuel = f; }
+function setFuel(f) {
+    fuel = Math.min(Math.max(f, 0), 1);
+}
 
-function setHealth(h) { health = h; }
-
+function setHealth(h) {
+    health = Math.min(Math.max(h, 0), 1);
+}
 function setGear(g) {
     if (g === 0) gearValue.innerText = "N";
     else gearValue.innerText = g;
@@ -133,6 +139,7 @@ function setRightIndicator(state){
 function setSeatbelts(state) { seatbelt.classList.toggle("active", state); }
 
 function setSpeedMode(mode) { kmhMode = (mode === 0); }
+
 
 
 
