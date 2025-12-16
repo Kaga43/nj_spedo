@@ -1,1 +1,1 @@
-This project for my personal uses, please dont judge me about the script because im make this with fully help by gpt :)
+This project is for personal use. Please don’t judge the script, as it was fully made with the help of GPT ;)
